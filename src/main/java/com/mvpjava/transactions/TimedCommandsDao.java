@@ -17,7 +17,9 @@ public class TimedCommandsDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(TimedCommandsDao.class);
 	private final JdbcTemplate jdbcTemplate;
-	private boolean demoFailureMode;
+	
+		
+//	private boolean demoFailureMode;
 
 	@Autowired
 	public TimedCommandsDao(JdbcTemplate jdbcTemplate) {
@@ -25,14 +27,18 @@ public class TimedCommandsDao {
 	}
 
 	@Transactional(propagation = Propagation.NESTED)
-	public int[] uplink(String[] timedCommands) {
+	public int[] uplink(String[] timedCommands, Boolean bool) {
+		logger.info("Bool="+bool);
 		int[] updateCounts = jdbcTemplate.batchUpdate(timedCommands);
 		
-		//Just for demo purposes
-		if (demoFailureMode) {
-			throwRandomException();
-		}
+		/*
+		 * //Just for demo purposes if (demoFailureMode) { throwRandomException(); }
+		 * 
+		 */
 		
+		if(bool)
+			//throw new RuntimeException();	
+			throw new RuntimeException();	
 		return updateCounts;
 	}
 	
@@ -40,12 +46,14 @@ public class TimedCommandsDao {
 	 * If 'nested.tx.fail' is set to true in application.properties, 
 	 * it will purposely fail a random nested transaction for demo purposes
 	 */
-	@Value("#{new Boolean('${nested.tx.fail:false}')}") 
-	public void setDemoFailureMode(boolean demoFailureMode) {
-		this.demoFailureMode = demoFailureMode;
-	}	
+	/*
+	 * @Value("#{new Boolean('${nested.tx.fail:false}')}") public void
+	 * setDemoFailureMode(boolean demoFailureMode) { this.demoFailureMode =
+	 * demoFailureMode; }
+	 */
 	
 	/* Simulate a really bad connection */
+	@SuppressWarnings("unused")
 	private void throwRandomException() {
 		if (new Random().nextInt(3) == 1) {
 			logger.info("throwing a random exception to demo rolling back NESTED Transactions");

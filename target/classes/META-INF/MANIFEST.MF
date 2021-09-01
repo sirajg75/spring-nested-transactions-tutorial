@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: transactions-tutorial
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: ADMIN
+Implementation-Vendor-Id: com.mvpjava.tutorials
+Build-Jdk: 1.8.0_144
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/spring-nested-transactions-tutorial
+Created-By: Maven Integration for Eclipse
+

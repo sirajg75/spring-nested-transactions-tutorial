@@ -7,6 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface UploaderService {
 
-	public void upload(List<String> sql);
+	public void upload(List<String> sql,int rollBackCount);
 
 }
